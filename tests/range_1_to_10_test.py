@@ -1,6 +1,7 @@
 import os
 import json
 import time
+import unittest
 from pathlib import Path
 from unittest import TestCase
 
@@ -37,3 +38,5 @@ class HelloWorldTest(TestCase):
         assert isinstance(output["error"], bool)
         assert isinstance(output["result"], list)
 
+if __name__ == "__main__":
+    unittest.main()
