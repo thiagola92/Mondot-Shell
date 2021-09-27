@@ -22,23 +22,23 @@ jobs:
         run: python -m unittest discover -v -s tests -p *_test.py
       - name: Build executable
         run: python setup.py build
-  windows-build:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout to repository
-        uses: actions/checkout@v2
-      - name: Set up Python 3.9.5
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9.5
-      - name: Install dependecies
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Run unittest
-        run: python -m unittest discover -v -s tests -p *_test.py
-      - name: Build executable
-        run: python setup.py build
+  # windows-build:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - name: Checkout to repository
+  #       uses: actions/checkout@v2
+  #     - name: Set up Python 3.9.5
+  #       uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.9.5
+  #     - name: Install dependecies
+  #       run: |
+  #         python -m pip install --upgrade pip
+  #         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+  #     - name: Run unittest
+  #       run: python -m unittest discover -v -s tests -p *_test.py
+  #     - name: Build executable
+  #       run: python setup.py build
   macos-build:
     runs-on: macos-latest
     steps:
