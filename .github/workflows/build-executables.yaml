@@ -1,11 +1,11 @@
-name: python-unittest
+name: build-executables
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  unittest:
+  ubuntu-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout to repository
@@ -20,3 +20,5 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Run unittest
         run: python -m unittest discover -v -s tests -p *_test.py
+      - name: Build executable
+        run: python setup.py build
