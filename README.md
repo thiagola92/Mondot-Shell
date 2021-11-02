@@ -3,17 +3,28 @@ Mondot Shell creates an interactive environment between [Mondot](https://github.
 
 ![communication](https://user-images.githubusercontent.com/9352894/135046656-69973ac1-bf75-47ce-ac46-7d7e62168c18.png)
 
-# Run
-Run as any other Python script:
+# Requirements
+
+## Build
+To build the executable you will need patchelf
+
+**Ubuntu**
 ```
-python run.py --input tests/code/hello_world.py --tmp tmp/tmp.py
+sudo apt-get install patchelf
 ```
 
-If you have build an executable, use it like:
+**Fedora**
 ```
-run --input tests/code/hello_world.py --tmp tmp/tmp.py
+dnf install patchelf
 ```
 
+More details at: https://cx-freeze.readthedocs.io/en/latest/installation.html
+
+## Python
+Install pip requirements:
+```
+pip install -r requirements.txt
+```
 
 # Build
 Create an executable file used by Mondot to run Python code:
@@ -21,3 +32,14 @@ Create an executable file used by Mondot to run Python code:
 python setup.py build
 ```
 
+# Run
+
+## Python script
+```
+python run.py --input tests/code/hello_world.py --tmp tmp/tmp.py
+```
+
+## Executable
+```
+run --input tests/code/hello_world.py --tmp tmp/tmp.py
+```
