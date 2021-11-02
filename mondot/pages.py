@@ -39,7 +39,7 @@ class Pages:
 
     def _get_json(self, obj):
         return json_util.dumps(
-            obj, indent=2, json_options=json_util.STRICT_JSON_OPTIONS
+            obj, indent=2, json_options=json_util.CANONICAL_JSON_OPTIONS
         )
 
     def _start_new_page(self):
