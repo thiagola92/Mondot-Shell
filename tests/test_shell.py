@@ -3,13 +3,17 @@ from pathlib import Path
 from unittest import TestCase
 
 class TestShell(TestCase):
-    def _read_output(self, code_file, page):
+    def _read_output(self, code_file, page) -> str:
         output_file = f"{code_file}_{page}"
 
-        assert Path(output_file).exists()
+        assert self._output_exists(code_file, page)
 
         with open(output_file) as f:
             return json.load(f)
+    
+    def _output_exists(self, code_file, page) -> bool:
+        output_file = f"{code_file}_{page}"
+        return Path(output_file).exists()
     
     def _request_next_output(self, code_file):
         input_file = f"{code_file}_i"
