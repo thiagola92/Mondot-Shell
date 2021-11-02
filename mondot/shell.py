@@ -22,7 +22,7 @@ class Shell:
 
     def _process_output(self, obj):
         # Prevent iterating a string
-        if isinstance(obj, str):
+        if isinstance(obj, (str, dict)):
             obj = [obj]
         
         # Make sure that the obj is iterable at the end
