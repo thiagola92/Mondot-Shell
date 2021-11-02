@@ -11,7 +11,7 @@ executables = [Executable("run.py", target_name="run", base=base)]
 
 setup(
     name="mondot",
-    version="0.0.0",
+    version="1.0.0",
     description="Mondot shell",
     options={"build_exe": build_exe_options},
     executables=executables,
