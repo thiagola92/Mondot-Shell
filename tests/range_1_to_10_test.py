@@ -8,30 +8,39 @@ from unittest import TestCase
 
 class HelloWorldTest(TestCase):
     def setUp(self):
-        self.input = "tests/code/range_1_to_10.py"
-        self.output = "tests/code/range_1_to_10.py_1"
-        self.tmp = "tmp/tmp.py"
+        self.code_file = "tests/code/list/range_1_to_10.py"
+        self.output_file = f"{self.code_file}_1"
+        self.tmp_file = "tmp/tmp.py"
+
+    def tearDown(self):
+        Path(self.output_file).unlink(missing_ok=True)
+        Path(self.tmp_file).unlink(missing_ok=True)
 
     def test_range_1_to_10(self):
-        os.system(f"python run.py --input {self.input} --tmp {self.tmp}")
+        os.system(f"python run.py --input {self.code_file} --tmp {self.tmp_file}")
 
         time.sleep(1)
 
-        assert Path(self.output).exists()
-
-        with open(self.output) as f:
-            output = json.load(f)
-
+        output = self._read_output(1)
+        self._validate_output_format(output)
         self._validate_output(output)
-
+    
+    def _validate_output(self, output):
         assert output["error"] == False
         assert output["result"] == list(range(10))
 
-    def tearDown(self):
-        Path(self.output).unlink(missing_ok=True)
-        Path(self.tmp).unlink(missing_ok=True)
+        for r in output["result"]:
+            assert isinstance(r, int)
     
-    def _validate_output(self, output):
+    def _read_output(self, page):
+        output_file = f"{self.code_file}_{page}"
+
+        assert Path(output_file).exists()
+
+        with open(output_file) as f:
+            return json.load(f)
+    
+    def _validate_output_format(self, output):
         assert isinstance(output, dict)
         assert "error" in output
         assert "result" in output
