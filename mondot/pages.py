@@ -1,5 +1,8 @@
 import time
+from pathlib import Path
 from bson import json_util
+
+from mondot.error import Error
 
 
 class Pages:
@@ -10,32 +13,47 @@ class Pages:
         self._current_page = 1
         self._current_docs = []
 
-        self.error = False
+        self.error = Error.OK
 
     def append_document(self, doc):
         self._current_docs.append(doc)
 
         if len(self._current_docs) >= self._page_size:
-            self.write_page()
+            self.write_current_page()
             self._wait_mondot_input()
 
-    def write_page(self):
-        filename = f"{self._filepath}_{self._current_page}"
-
+    def write_current_page(self):
         # Doesn't need to write file when no document exist
         if len(self._current_docs) <= 0:
             return
 
-        with open(filename, "w") as file:
-            file.write(self._get_content())
+        filepath = f"{self._filepath}_{self._current_page}"
+        page_json = self._get_page_json(
+            content={"error": self.error, "result": self._current_docs}
+        )
+
+        Path(filepath).write_text(page_json)
 
         self._start_new_page()
 
-    def _get_content(self):
+    def write_last_page(self):
+        filepath = f"{self._filepath}_{self._current_page}"
+        page_json = self._get_page_json(
+            content={"error": Error.ERR_FILE_EOF, "result": []}
+        )
+
+        Path(filepath).write_text(page_json)
+
+    def _get_page_json(self, content):
         try:
-            return self._get_json({"error": self.error, "result": self._current_docs})
+            return self._get_json(content)
         except Exception as e:
-            return self._get_json({"error": True, "result": [f"{type(e).__name__}: {str(e)}"]})
+            return self._get_json(
+                {
+                    "error": Error.ERR_PARSE_ERROR,
+                    "result": [Error.get_exception_message()],
+                }
+            )
 
     def _get_json(self, obj):
         return json_util.dumps(
