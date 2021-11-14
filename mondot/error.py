@@ -57,6 +57,7 @@ class Error:
     ERR_BUG = 47
     ERR_PRINTER_ON_FIRE = 48
 
-    def get_exception_message(self):
+    @staticmethod
+    def get_exception_message():
         exc_type, exc_value, exc_traceback = sys.exc_info()
         return "".join(traceback.format_exception(exc_type, exc_value, exc_traceback))
