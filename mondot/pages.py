@@ -39,7 +39,7 @@ class Pages:
     def write_last_page(self):
         filepath = f"{self._filepath}_{self._current_page}"
         page_json = self._get_page_json(
-            content={"error": Error.ERR_FILE_EOF, "result": []}
+            content={"error": Error.ERR_FILE_EOF, "result": ["No more pages"]}
         )
 
         Path(filepath).write_text(page_json)
