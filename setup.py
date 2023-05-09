@@ -1,18 +1,8 @@
 import sys
-from cx_Freeze import setup, Executable
 
-build_exe_options = {"packages": ["pymongo"]}
+from cx_Freeze import Executable, setup
 
-base = None
-if sys.platform == "win32":
-    base = "Win32GUI"
+# base="Win32GUI" should be used only for Windows GUI app
+base = "Win32GUI" if sys.platform == "win32" else None
 
-executables = [Executable("run.py", target_name="run", base=base)]
-
-setup(
-    name="mondot",
-    version="1.0.0",
-    description="Mondot shell",
-    options={"build_exe": build_exe_options},
-    executables=executables,
-)
+setup(executables=[Executable("run.py", base=base)])

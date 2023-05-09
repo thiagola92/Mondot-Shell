@@ -1,40 +1,58 @@
-from pymongo import MongoClient
-from collections.abc import Iterable
+import time
+from collections.abc import Callable
+from pathlib import Path
 
-from mondot.pages import Pages
-from mondot.error import Error
+from mondot.error import ERR_SCRIPT_FAILED, get_exception_message
+from mondot.page import Page
+from mondot.paginator import Paginator
+from mondot.runner import Runner
+
+INPUT_SUFFIX = "in"
+OUTPUT_SUFFIX = "out"
 
 
 class Shell:
-    def __init__(self, uri, db, filepath, page_size):
-        self.uri = uri
-        self.client = MongoClient(self.uri)
-        self.db = self.client[db]
+    """
+    Responsible for the communication with Mondot (input & output).
+    """
 
-        self._pages = Pages(filepath, int(page_size))
+    def __init__(self, uris: list[str], dbs: list[str], filepath: str, page_size: int):
+        self._filepath = filepath
+        self._runner: Runner = Runner(uris, dbs)
+        self._paginator: Paginator = Paginator(page_size)
 
-    def run(self, code):
+    def run(self, code: Callable):
         try:
-            obj = code(self)
-        except Exception as e:
-            obj = Error.get_exception_message()
-            self._pages.error = Error.ERR_SCRIPT_FAILED
+            obj = self._runner.run(code)
+        except Exception:
+            return self._write_output(
+                Page(
+                    error_code=ERR_SCRIPT_FAILED,
+                    error_msg=get_exception_message(),
+                )
+            )
 
-        self._process_output(obj)
+        for page in self._paginator.paginate(obj):
+            self._write_output(page)
 
-    def _process_output(self, obj):
-        # Prevent iterating over this types
-        if isinstance(obj, (str, dict)):
-            obj = [obj]
+            # Any error should abort pagination
+            if page.error_code:
+                break
 
-        # Make sure that the obj is iterable at the end
-        if not isinstance(obj, Iterable):
-            obj = [obj]
+            self._read_input()
 
-        self._save_output(obj)
+    def _write_output(self, page: Page):
+        page_json = page.to_json()
+        filepath = f"{self._filepath}_{OUTPUT_SUFFIX}_{page.number}"
 
-    def _save_output(self, obj):
-        for doc in obj:
-            self._pages.append_document(doc)
-        self._pages.write_current_page()
-        self._pages.write_last_page()
+        Path(filepath).write_text(page_json)
+
+    def _read_input(self):
+        filepath = f"{self._filepath}_{INPUT_SUFFIX}"
+
+        # Clear previous input
+        Path(filepath).write_text("")
+
+        # Wait new input
+        while Path(filepath).read_text() == "":
+            time.sleep(1)

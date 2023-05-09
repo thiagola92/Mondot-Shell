@@ -9,7 +9,7 @@ from tests.test_shell import TestShell
 
 class HelloWorldTest(TestShell):
     def setUp(self):
-        self.code_file = "tests/code/list/range_1_to_100.py"
+        self.code_file = "tests/code/iterator/range_iterator_1_to_100.py"
         self.tmp_file = "tmp/tmp.py"
         self.process = Popen(
             f"python run.py --input {self.code_file} --tmp {self.tmp_file}", shell=True
@@ -17,20 +17,23 @@ class HelloWorldTest(TestShell):
 
     def tearDown(self):
         self._delete_output_files(self.code_file)
+        self._delete_input_file(self.code_file)
         self.process.kill()
 
     def test_range_1_to_100(self):
         time.sleep(1)
 
-        page: Page = self._read_output(self.code_file, 1)
-        self._validate_output(page)
+        for x in [1, 2, 3, 4, 5, 6]:
+            page: Page = self._read_output(self.code_file, x)
+            self._validate_output(page, x)
+            self._request_next_output(self.code_file)
 
-        assert not self._output_exists(self.code_file, 2)
+        assert not self._output_exists(self.code_file, 7)
 
-    def _validate_output(self, page: Page):
-        assert page.error_code == ERR_FILE_EOF
-        assert page.result == list(range(100))
-        assert page.number == 1
+    def _validate_output(self, page: Page, number: int):
+        assert page.error_code in (ERR_FILE_EOF, OK)
+        assert len(page.result) == 20 or len(page.result) == 0
+        assert page.number == number
 
 
 if __name__ == "__main__":

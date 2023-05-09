@@ -1,9 +1,10 @@
 import time
 import unittest
 from subprocess import Popen
-from tests.test_shell import TestShell
 
-from mondot.error import Error
+from mondot.error import ERR_PARSE_ERROR
+from mondot.page import Page
+from tests.test_shell import TestShell
 
 
 class FailParseTest(TestShell):
@@ -21,17 +22,16 @@ class FailParseTest(TestShell):
     def test_fail_parse(self):
         time.sleep(1)
 
-        output = self._read_output(self.code_file, 1)
-        self._validate_output_format(output)
-        self._validate_output(output)
-        self._validate_last_output(self.code_file, 2)
+        page: Page = self._read_output(self.code_file, 1)
+        self._validate_output(page)
 
-        assert not self._output_exists(self.code_file, 3)
+        assert not self._output_exists(self.code_file, 2)
 
-    def _validate_output(self, output):
-        assert output["error"] == Error.ERR_PARSE_ERROR
-        assert len(output["result"]) == 1
-        assert isinstance(output["result"][0], str)
+    def _validate_output(self, page: Page):
+        assert page.error_code == ERR_PARSE_ERROR
+        assert page.error_msg
+        assert page.number == 1
+        assert page.result == ""
 
 
 if __name__ == "__main__":

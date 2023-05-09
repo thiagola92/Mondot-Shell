@@ -1,6 +1,9 @@
 import time
 import unittest
 from subprocess import Popen
+
+from mondot.error import ERR_FILE_EOF
+from mondot.page import Page
 from tests.test_shell import TestShell
 
 
@@ -19,19 +22,15 @@ class HelloWorldTest(TestShell):
     def test_range_1_to_10(self):
         time.sleep(1)
 
-        output = self._read_output(self.code_file, 1)
-        self._validate_output_format(output)
-        self._validate_output(output)
-        self._validate_last_output(self.code_file, 2)
+        page: Page = self._read_output(self.code_file, 1)
+        self._validate_output(page)
 
-        assert not self._output_exists(self.code_file, 3)
+        assert not self._output_exists(self.code_file, 2)
 
-    def _validate_output(self, output):
-        assert output["error"] == False
-        assert output["result"] == list(range(10))
-
-        for r in output["result"]:
-            assert isinstance(r, int)
+    def _validate_output(self, page: Page):
+        assert page.error_code == ERR_FILE_EOF
+        assert page.result == list(range(10))
+        assert page.number == 1
 
 
 if __name__ == "__main__":

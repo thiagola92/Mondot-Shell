@@ -1,9 +1,10 @@
 import time
 import unittest
 from subprocess import Popen
-from tests.test_shell import TestShell
 
-from mondot.error import Error
+from mondot.error import ERR_FILE_EOF
+from mondot.page import Page
+from tests.test_shell import TestShell
 
 
 class HelloWorldTest(TestShell):
@@ -21,16 +22,15 @@ class HelloWorldTest(TestShell):
     def test_hello_world(self):
         time.sleep(1)
 
-        output = self._read_output(self.code_file, 1)
-        self._validate_output_format(output)
-        self._validate_output(output)
-        self._validate_last_output(self.code_file, 2)
+        page: Page = self._read_output(self.code_file, 1)
+        self._validate_output(page)
 
-        assert not self._output_exists(self.code_file, 3)
+        assert not self._output_exists(self.code_file, 2)
 
-    def _validate_output(self, output):
-        assert output["error"] == Error.OK
-        assert output["result"][0] == None
+    def _validate_output(self, page):
+        assert page.error_code == ERR_FILE_EOF
+        assert page.number == 1
+        assert page.result == None
 
 
 if __name__ == "__main__":
