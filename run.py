@@ -10,8 +10,8 @@ parser = argparse.ArgumentParser(description="Description to be used on mondot")
 parser.add_argument("--input", dest="in_filepath", type=str)
 parser.add_argument("--uri", dest="uri", default="mongodb://127.0.0.1:27017", action="append", type=str)
 parser.add_argument("--database", dest="db", default="admin", action="append", type=str)
-parser.add_argument("--page_size", dest="page_size", default="20", type=int)
-parser.add_argument("--tmp", dest="tmp_filepath", default="tmp.py", type=str)
+parser.add_argument("--page-size", dest="page_size", default="20", type=int)
+parser.add_argument("--temporary-file", dest="tmp_filepath", default="tmp.py", type=str)
 # fmt: on
 
 args = parser.parse_args()
