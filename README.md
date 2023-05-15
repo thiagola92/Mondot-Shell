@@ -10,5 +10,5 @@ Install dependendecies: `pdm install`
 Build executable: `pdm run python setup.py build`  
 
 # Run
-Python: `python run.py --input tests/code/hello_world.py --tmp tmp/tmp.py`  
-Executable: `run --input tests/code/hello_world.py --tmp tmp/tmp.py`  
+Python: `python run.py --input ./tests/code/none/hello_world.py --temporary-file tmp/tmp.py`  
+Executable: `run --input ./tests/code/none/hello_world.py --temporary-file tmp/tmp.py`  
