@@ -7,8 +7,8 @@ Mondot Shell creates an interactive environment between [Mondot](https://github.
 This project use [PDM](https://github.com/pdm-project/pdm) as package and dependency manager.  
 
 Install dependendecies: `pdm install`  
-Build executable: `pdm run python setup.py build`  
+Build executable: `pdm run pyinstaller run.py --onefile`  
 
 # Run
 Python: `python run.py --code-path ./tests/code/none/hello_world.py --tmp-path tmp/tmp.py`  
-Executable: `run --code-path ./tests/code/none/hello_world.py --tmp-path tmp/tmp.py`  
+Executable: `./run --code-path ./tests/code/none/hello_world.py --tmp-path tmp/tmp.py`  
