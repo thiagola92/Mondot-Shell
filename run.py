@@ -8,7 +8,7 @@ from mondot.shell import Shell
 # fmt: off
 parser = argparse.ArgumentParser(description="Description to be used on mondot")
 parser.add_argument("--code-path", dest="code_path", type=str)
-parser.add_argument("--uri", dest="uri", default=["mongodb://127.0.0.1:27017"], action="append", type=str)
+parser.add_argument("--uri", dest="uri", default=[], action="append", type=str)
 parser.add_argument("--database", dest="db", default=["admin"], action="append", type=str)
 parser.add_argument("--page-size", dest="page_size", default="20", type=int)
 parser.add_argument("--tmp-path", dest="tmp_path", default="tmp.py", type=str)
@@ -16,6 +16,10 @@ parser.add_argument("--tmp-path", dest="tmp_path", default="tmp.py", type=str)
 
 args = parser.parse_args()
 args = vars(args)
+
+# Add default if needed
+uris = args["uri"] or ["mongodb://127.0.0.1:27017"]
+dbs = args["db"] or ["admin"]
 
 code_path: Path = Path(args["code_path"]).resolve()  # Absolute path
 tmp_path: Path = Path(args["tmp_path"]).resolve()  # Absolute path
@@ -31,8 +35,8 @@ spec.loader.exec_module(module)
 tmp_path.unlink(missing_ok=True)
 
 Shell(
-    uris=args["uri"],
-    dbs=args["db"],
+    uris=uris,
+    dbs=dbs,
     filepath=str(code_path),
     page_size=args["page_size"],
 ).run(module.code)
