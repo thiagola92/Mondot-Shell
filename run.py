@@ -9,7 +9,7 @@ from mondot.shell import Shell
 parser = argparse.ArgumentParser(description="Description to be used on mondot")
 parser.add_argument("--code-path", dest="code_path", type=str)
 parser.add_argument("--uri", dest="uri", default=[], action="append", type=str)
-parser.add_argument("--database", dest="db", default=["admin"], action="append", type=str)
+parser.add_argument("--database", dest="db", default=[], action="append", type=str)
 parser.add_argument("--page-size", dest="page_size", default="20", type=int)
 parser.add_argument("--tmp-path", dest="tmp_path", default="tmp.py", type=str)
 # fmt: on
