@@ -16,10 +16,18 @@ class Shell:
     Responsible for the communication with Mondot (input & output).
     """
 
-    def __init__(self, uris: list[str], dbs: list[str], filepath: str, page_size: int):
+    def __init__(
+        self,
+        uris: list[str],
+        dbs: list[str],
+        filepath: str,
+        page_size: int,
+        timer: float,
+    ):
         self._filepath = filepath
         self._runner: Runner = Runner(uris, dbs)
         self._paginator: Paginator = Paginator(page_size)
+        self._timer = timer
 
     def run(self, code: Callable):
         try:
@@ -55,4 +63,4 @@ class Shell:
 
         # Wait new input
         while Path(filepath).read_text() == "":
-            time.sleep(1)
+            time.sleep(self._timer)

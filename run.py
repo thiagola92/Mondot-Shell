@@ -11,6 +11,7 @@ parser.add_argument("--code-path", dest="code_path", type=str)
 parser.add_argument("--uri", dest="uri", default=[], action="append", type=str)
 parser.add_argument("--database", dest="db", default=[], action="append", type=str)
 parser.add_argument("--page-size", dest="page_size", default="20", type=int)
+parser.add_argument("--timer", dest="timer", default="1.0", type=float)
 parser.add_argument("--tmp-path", dest="tmp_path", default="tmp.py", type=str)
 # fmt: on
 
@@ -39,4 +40,5 @@ Shell(
     dbs=dbs,
     filepath=str(code_path),
     page_size=args["page_size"],
+    timer=args["timer"],
 ).run(module.code)
