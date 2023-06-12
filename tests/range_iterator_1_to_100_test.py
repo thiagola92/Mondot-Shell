@@ -12,7 +12,8 @@ class HelloWorldTest(TestShell):
         self.code_file = "tests/code/iterator/range_iterator_1_to_100.py"
         self.tmp_file = "tmp/tmp.py"
         self.process = Popen(
-            f"python run.py --input {self.code_file} --tmp {self.tmp_file}", shell=True
+            f"python run.py --code-path {self.code_file} --tmp-path  {self.tmp_file}",
+            shell=True,
         )
 
     def tearDown(self):
@@ -23,12 +24,12 @@ class HelloWorldTest(TestShell):
     def test_range_1_to_100(self):
         time.sleep(1)
 
-        for x in [1, 2, 3, 4, 5, 6]:
+        for x in [0, 1, 2, 3, 4, 5]:
             page: Page = self._read_output(self.code_file, x)
             self._validate_output(page, x)
             self._request_next_output(self.code_file)
 
-        assert not self._output_exists(self.code_file, 7)
+        assert not self._output_exists(self.code_file, 6)
 
     def _validate_output(self, page: Page, number: int):
         assert page.error_code in (ERR_FILE_EOF, OK)

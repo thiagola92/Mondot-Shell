@@ -23,7 +23,7 @@ class TestShell(TestCase):
         time.sleep(1)
 
     def _delete_output_files(self, code_file):
-        page = 1
+        page = 0
 
         while Path(f"{code_file}_{OUTPUT_SUFFIX}_{page}").exists():
             Path(f"{code_file}_{OUTPUT_SUFFIX}_{page}").unlink(missing_ok=True)

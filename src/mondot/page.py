@@ -11,7 +11,7 @@ class Page:
     error_code: int = 0
     error_msg: str = ""
     result: str = ""
-    number: int = 1
+    number: int = 0
 
     def from_json(text: str) -> Self:
         d: dict = json_util.loads(text)

@@ -12,7 +12,8 @@ class RaiseExceptionTest(TestShell):
         self.code_file = "tests/code/error/raise_exception.py"
         self.tmp_file = "tmp/tmp.py"
         self.process = Popen(
-            f"python run.py --input {self.code_file} --tmp {self.tmp_file}", shell=True
+            f"python run.py --code-path {self.code_file} --tmp-path  {self.tmp_file}",
+            shell=True,
         )
 
     def tearDown(self):
@@ -22,14 +23,14 @@ class RaiseExceptionTest(TestShell):
     def test_raise_exception(self):
         time.sleep(1)
 
-        page: Page = self._read_output(self.code_file, 1)
+        page: Page = self._read_output(self.code_file, 0)
         self._validate_output(page)
 
-        assert not self._output_exists(self.code_file, 2)
+        assert not self._output_exists(self.code_file, 1)
 
     def _validate_output(self, page: Page):
         assert page.error_code == ERR_SCRIPT_FAILED
-        assert page.number == 1
+        assert page.number == 0
 
 
 if __name__ == "__main__":

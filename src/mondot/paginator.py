@@ -15,7 +15,7 @@ class Paginator:
     def __init__(self, page_size: int):
         self._page_size = page_size
 
-        self._current_page = 1
+        self._current_page = 0
         self._current_docs = []
 
     def paginate(self, obj) -> Iterator[Page]:
