@@ -2,7 +2,10 @@ import ast
 from ast import Module
 from pathlib import Path
 
-BASE_CODE = "def code(self):\n" "    return self"
+BASE_CODE = """
+def code(self):
+    from bson import ObjectId  # Implicit import for the user
+"""
 
 
 def rewrite_user_code(input_path: Path, output_path: Path):
@@ -20,7 +23,7 @@ def _inject_inside_base_code(base_code: Module, user_code: Module):
 
     # Insert all user code inside the function
     # and add a return to the last expression
-    function.body = [exp for exp in user_code.body]
+    function.body.extend([exp for exp in user_code.body])
 
     if hasattr(function.body[-1], "value"):
         function.body[-1] = ast.Return(value=function.body[-1].value)
