@@ -4,8 +4,8 @@ from subprocess import Popen
 
 from test_shell import TestShell
 
-from mondot.error import ERR_PARSE_ERROR
-from mondot.page import Page
+from mondot_shell.error import ERR_PARSE_ERROR
+from mondot_shell.page import Page
 
 
 class FailParseTest(TestShell):

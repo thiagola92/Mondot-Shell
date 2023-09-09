@@ -1,7 +1,7 @@
 from collections.abc import Iterator
 
-from mondot.error import ERR_FILE_EOF
-from mondot.page import Page
+from mondot_shell.error import ERR_FILE_EOF
+from mondot_shell.page import Page
 
 # Prevent iterating over this types
 PROTECTED_TYPES = (str, dict)

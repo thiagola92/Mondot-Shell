@@ -2,10 +2,10 @@ import time
 from collections.abc import Callable
 from pathlib import Path
 
-from mondot.error import ERR_SCRIPT_FAILED, get_exception_message
-from mondot.page import Page
-from mondot.paginator import Paginator
-from mondot.runner import Runner
+from mondot_shell.error import ERR_SCRIPT_FAILED, get_exception_message
+from mondot_shell.page import Page
+from mondot_shell.paginator import Paginator
+from mondot_shell.runner import Runner
 
 INPUT_SUFFIX = "in"
 OUTPUT_SUFFIX = "out"

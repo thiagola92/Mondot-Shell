@@ -3,7 +3,7 @@ from typing import Self
 
 from bson import json_util
 
-from mondot.error import ERR_PARSE_ERROR, get_exception_message
+from mondot_shell.error import ERR_PARSE_ERROR, get_exception_message
 
 
 @dataclass

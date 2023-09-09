@@ -2,8 +2,8 @@ import time
 from pathlib import Path
 from unittest import TestCase
 
-from mondot.page import Page
-from mondot.shell import INPUT_SUFFIX, OUTPUT_SUFFIX
+from mondot_shell.page import Page
+from mondot_shell.shell import INPUT_SUFFIX, OUTPUT_SUFFIX
 
 
 class TestShell(TestCase):

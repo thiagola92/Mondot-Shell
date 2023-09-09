@@ -1,18 +1,14 @@
-[tool.poetry]
+[project]
 name = "mondot_shell"
 version = "2.0.0"
 description = "Shell for Mondot GUI"
-authors = ["thiagola92 <thiagola92@gmail.com>"]
-license = "MIT"
+authors = [
+    {name = "thiagola92", email = "thiagola92@gmail.com"},
+]
+dependencies = [
+    "pyinstaller>=4.5.1",
+    "pymongo[srv]>=4.5.0",
+]
+requires-python = ">=3.11"
 readme = "README.md"
-packages = [{include = "mondot", from = "src"}]
-
-[tool.poetry.dependencies]
-python = ">=3.11.3,<3.12"
-pyinstaller = "^5.12.0"
-pymongo = {extras = ["srv"], version = "^4.3.3"}
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+license = {text = "MIT"}

@@ -2,8 +2,8 @@ import time
 import unittest
 from subprocess import Popen
 
-from mondot.error import ERR_SCRIPT_FAILED
-from mondot.page import Page
+from mondot_shell.error import ERR_SCRIPT_FAILED
+from mondot_shell.page import Page
 from tests.test_shell import TestShell
 
 

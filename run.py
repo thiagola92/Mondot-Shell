@@ -2,8 +2,8 @@ import argparse
 import importlib.util
 from pathlib import Path
 
-from mondot.code import rewrite_user_code
-from mondot.shell import Shell
+from mondot_shell.code import rewrite_user_code
+from mondot_shell.shell import Shell
 
 # fmt: off
 parser = argparse.ArgumentParser(description="Description to be used on mondot")
