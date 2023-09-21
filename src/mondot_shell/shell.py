@@ -20,12 +20,13 @@ class Shell:
         self,
         uris: list[str],
         dbs: list[str],
+        cols: list[str],
         filepath: str,
         page_size: int,
         timer: float,
     ):
         self._filepath = filepath
-        self._runner: Runner = Runner(uris, dbs)
+        self._runner: Runner = Runner(uris, dbs, cols)
         self._paginator: Paginator = Paginator(page_size)
         self._timer = timer
 

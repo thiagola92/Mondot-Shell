@@ -2,11 +2,11 @@
 # It is not intended for manual editing.
 
 [metadata]
-groups = ["default"]
+groups = ["default", "dev"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:544d26379d7b1856243267f54bd9f7808d7b33756013adda6c8c27d584a38e08"
+content_hash = "sha256:3c98c5dcbeb5c75890d4e00785c99e60e80592d68e68ef6075b3adbc02502be5"
 
 [[package]]
 name = "altgraph"

@@ -4,7 +4,7 @@ from subprocess import Popen
 
 from mondot_shell.error import ERR_FILE_EOF
 from mondot_shell.page import Page
-from tests.test_shell import TestShell
+from test_shell import TestShell
 
 
 class HelloWorldTest(TestShell):
@@ -12,7 +12,7 @@ class HelloWorldTest(TestShell):
         self.code_file = "tests/code/none/hello_world.py"
         self.tmp_file = "tmp/tmp.py"
         self.process = Popen(
-            f"python run.py --code-path {self.code_file} --tmp-path  {self.tmp_file}",
+            f"python run.py --code-path {self.code_file} --tmp-path {self.tmp_file}",
             shell=True,
         )
 
