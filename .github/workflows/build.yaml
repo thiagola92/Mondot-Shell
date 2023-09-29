@@ -12,11 +12,10 @@ jobs:
       - run: pdm install
       - run: pdm run unittest
       - run: pdm run build
-      - run: zip dist/shell.zip dist/shell
       - uses: actions/upload-artifact@v3
         with:
           name: shell-linux
-          path: dist/shell.zip
+          path: dist/shell
   macos-build:
     runs-on: macos-latest
     steps:
@@ -27,11 +26,10 @@ jobs:
       - run: pdm install
       - run: pdm run unittest
       - run: pdm run build
-      - run: zip dist/shell.zip dist/shell
       - uses: actions/upload-artifact@v3
         with:
           name: shell-macos
-          path: dist/shell.zip
+          path: dist/shell
   windows-build:
     runs-on: windows-latest
     steps:
@@ -42,9 +40,8 @@ jobs:
       - run: pdm install
       - run: pdm run unittest
       - run: pdm run build
-      - run: tar -a -c -f dist/shell.zip dist/shell.exe
       - uses: actions/upload-artifact@v3
         with:
           name: shell-windows
-          path: dist/shell.zip
+          path: dist/shell.exe
         
