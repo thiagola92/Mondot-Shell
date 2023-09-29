@@ -42,7 +42,7 @@ jobs:
       - run: pdm install
       - run: pdm run unittest
       - run: pdm run build
-      - run: tar -a -c -f dist/shell.zip dist/shell
+      - run: tar -a -c -f dist/shell.zip dist/shell.exe
       - uses: actions/upload-artifact@v3
         with:
           name: shell-windows
