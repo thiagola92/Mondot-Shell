@@ -20,6 +20,7 @@ dev = [
 ]
 
 [tool.pdm.scripts]
+build = "pyinstaller run.py --onefile --name shell"
 unittest = "python -m unittest discover --verbose --failfast --start-directory ./tests --pattern *_test.py"
 black = "python -m black ."
 isort = "python -m isort --verbose --atomic --profile black ."
