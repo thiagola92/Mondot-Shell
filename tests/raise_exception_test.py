@@ -2,9 +2,10 @@ import time
 import unittest
 from subprocess import Popen
 
+from test_shell import TestShell
+
 from mondot_shell.error import ERR_SCRIPT_FAILED
 from mondot_shell.page import Page
-from test_shell import TestShell
 
 
 class RaiseExceptionTest(TestShell):
