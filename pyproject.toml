@@ -15,3 +15,6 @@ license = {text = "MIT"}
 
 [tool.pdm.dev-dependencies]
 dev = []
+
+[tool.pdm.scripts]
+unittest = "python -m unittest discover --verbose --failfast --start-directory ./tests --pattern *_test.py"
